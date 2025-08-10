@@ -41,7 +41,7 @@ const Footer: React.FC = () => {
                 {/* Google Maps Iframe - Full Interactive Map */}
                 <div className="relative rounded-lg overflow-hidden h-48 w-full shadow-lg">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14460.816326988188!2d67.29673298089614!3d25.027147338248188!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb34ba7aedde237%3A0xef200ee78d0e7246!2sMidway%20Commercial-B%2C%20Bahria%20Town%20Karachi!5e0!3m2!1sen!2s!4v1752291903438!5m2!1sen!2s"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3623.1335082457663!2d67.0709339!3d24.7566112!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb32347d0cd2073%3A0x8ae8f1c5145795d3!2sEmaar%20Oceanfront!5e0!3m2!1sen!2s!4v1754858335175!5m2!1sen!2s"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
