@@ -16,9 +16,7 @@ interface ProjectsListProps {
   projects: Project[];
 }
 
-const ProjectsList: React.FC<ProjectsListProps> = ({
-  projects,
-}) => {
+const ProjectsList: React.FC<ProjectsListProps> = ({ projects }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isScrolling, setIsScrolling] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);

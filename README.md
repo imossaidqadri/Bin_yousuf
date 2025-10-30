@@ -34,22 +34,26 @@ A modern responsive website for Bin Yousuf Group, a premium real estate developm
 ### Installation
 
 1. Clone the repository
+
    ```bash
    git clone https://github.com/imossaidqadri/Bin_yousuf.git
    cd Bin_yousuf
    ```
 
 2. Install dependencies
+
    ```bash
    bun install
    ```
 
 3. Set up environment variables
+
    ```bash
    cp .env.example .env
    ```
 
 4. Run the development server
+
    ```bash
    bun dev
    ```
@@ -65,18 +69,19 @@ bun run preview  # Preview production build
 
 ## Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| `bun dev` | Start development server |
-| `bun build` | Build for production |
+| Command       | Description              |
+| ------------- | ------------------------ |
+| `bun dev`     | Start development server |
+| `bun build`   | Build for production     |
 | `bun preview` | Preview production build |
-| `bun astro` | Run Astro CLI commands |
+| `bun astro`   | Run Astro CLI commands   |
 
 ## Configuration
 
 ### Environment Variables
 
 Create a `.env` file:
+
 ```env
 NEXT_PUBLIC_SITE_URL=https://www.binyousufgroup.com
 CONTACT_NUMBER=+923360878079
@@ -130,6 +135,7 @@ Website development by The Other Dev.
 ## Support
 
 For technical support:
+
 - **Email**: hello@otherdev.com
 - **Website**: [The Other Dev](https://otherdev.com)
 - **LinkedIn**: [The Other Dev](https://www.linkedin.com/company/theotherdev)

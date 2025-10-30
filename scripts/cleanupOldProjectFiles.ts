@@ -16,15 +16,15 @@ const oldProjectFiles = [
   'h1-tower.astro',
   'saima-marina.astro',
   'saima-waterfront.astro',
-  'beach-terraces-by-metro.astro'
+  'beach-terraces-by-metro.astro',
 ];
 
 async function cleanupOldFiles() {
   console.log('🧹 Starting cleanup of old project files...\n');
-  
+
   for (const file of oldProjectFiles) {
     const filePath = join('src/pages/projects', file);
-    
+
     try {
       await unlink(filePath);
       console.log(`✅ Removed: ${filePath}`);
@@ -36,9 +36,11 @@ async function cleanupOldFiles() {
       }
     }
   }
-  
+
   console.log('\n✨ Cleanup complete!');
-  console.log('📝 Note: Make sure the new dynamic route is working before deleting this script.');
+  console.log(
+    '📝 Note: Make sure the new dynamic route is working before deleting this script.'
+  );
 }
 
 // Run the cleanup

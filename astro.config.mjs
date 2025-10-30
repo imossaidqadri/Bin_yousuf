@@ -8,39 +8,38 @@ import vercel from '@astrojs/vercel';
 
 export default defineConfig({
   site: 'https://www.binyousufgroup.com',
-  
-  
+
   integrations: [
     react(),
     tailwind({
-      applyBaseStyles: true
+      applyBaseStyles: true,
     }),
   ],
 
   output: 'server',
   adapter: vercel(),
-  
+
   vite: {
     build: {
       rollupOptions: {
         output: {
           globals: {
-            'gsap/ScrollToPlugin': 'ScrollToPlugin'
-          }
-        }
-      }
+            'gsap/ScrollToPlugin': 'ScrollToPlugin',
+          },
+        },
+      },
     },
     ssr: {
       noExternal: ['gsap'],
-      external: ['googleapis']
+      external: ['googleapis'],
     },
     server: {
       headers: {
         'X-Frame-Options': 'DENY',
         'X-Content-Type-Options': 'nosniff',
         'Referrer-Policy': 'strict-origin-when-cross-origin',
-        'X-XSS-Protection': '1; mode=block'
-      }
-    }
-  }
+        'X-XSS-Protection': '1; mode=block',
+      },
+    },
+  },
 });

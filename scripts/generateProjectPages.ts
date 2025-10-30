@@ -5,78 +5,78 @@ import { writeFileSync, mkdirSync } from 'fs';
 import { join } from 'path';
 
 const projects = [
-    {
-        id: 'panorama',
-        name: 'Panorama',
-        location: 'Emaar',
-        number: '001'
-    },
-    {
-        id: 'the-views',
-        name: 'The Views',
-        location: 'Emaar',
-        number: '002'
-    },
-    {
-        id: 'park-edge',
-        name: 'Park Edge',
-        location: 'Emaar',
-        number: '003'
-    },
-    {
-        id: 'coral-towers',
-        name: 'Coral Towers',
-        location: 'Emaar',
-        number: '004'
-    },
-    {
-        id: 'pearl-reef-towers',
-        name: 'Pearl & Reef Towers',
-        location: 'Emaar',
-        number: '005'
-    },
-    {
-        id: 'aa-waterfront',
-        name: 'AA Waterfront',
-        location: 'HMR',
-        number: '006'
-    },
-    {
-        id: 'gold-crest-residence',
-        name: 'Gold Crest Residence',
-        location: 'HMR',
-        number: '007'
-    },
-    {
-        id: 'hs-residence',
-        name: 'H&S Residence',
-        location: 'HMR',
-        number: '008'
-    },
-    {
-        id: 'h1-tower',
-        name: 'H1 Tower',
-        location: 'HMR',
-        number: '009'
-    },
-    {
-        id: 'saima-marina',
-        name: 'Saima Marina',
-        location: 'HMR',
-        number: '010'
-    },
-    {
-        id: 'saima-waterfront',
-        name: 'Saima Waterfront',
-        location: 'HMR',
-        number: '011'
-    },
-    {
-        id: 'beach-terraces-by-metro',
-        name: 'Beach Terraces By Metro',
-        location: 'HMR',
-        number: '012'
-    }
+  {
+    id: 'panorama',
+    name: 'Panorama',
+    location: 'Emaar',
+    number: '001',
+  },
+  {
+    id: 'the-views',
+    name: 'The Views',
+    location: 'Emaar',
+    number: '002',
+  },
+  {
+    id: 'park-edge',
+    name: 'Park Edge',
+    location: 'Emaar',
+    number: '003',
+  },
+  {
+    id: 'coral-towers',
+    name: 'Coral Towers',
+    location: 'Emaar',
+    number: '004',
+  },
+  {
+    id: 'pearl-reef-towers',
+    name: 'Pearl & Reef Towers',
+    location: 'Emaar',
+    number: '005',
+  },
+  {
+    id: 'aa-waterfront',
+    name: 'AA Waterfront',
+    location: 'HMR',
+    number: '006',
+  },
+  {
+    id: 'gold-crest-residence',
+    name: 'Gold Crest Residence',
+    location: 'HMR',
+    number: '007',
+  },
+  {
+    id: 'hs-residence',
+    name: 'H&S Residence',
+    location: 'HMR',
+    number: '008',
+  },
+  {
+    id: 'h1-tower',
+    name: 'H1 Tower',
+    location: 'HMR',
+    number: '009',
+  },
+  {
+    id: 'saima-marina',
+    name: 'Saima Marina',
+    location: 'HMR',
+    number: '010',
+  },
+  {
+    id: 'saima-waterfront',
+    name: 'Saima Waterfront',
+    location: 'HMR',
+    number: '011',
+  },
+  {
+    id: 'beach-terraces-by-metro',
+    name: 'Beach Terraces By Metro',
+    location: 'HMR',
+    number: '012',
+  },
 ];
 
 const generateProjectPageTemplate = (project: any) => `---
@@ -148,48 +148,47 @@ const projectData: ProjectData = {
 
 // Generate all project pages and required directories
 const createDirectories = () => {
-    const directories = [
-        'src/pages/projects',
-        'src/layouts',
-        'src/types',
-        'src/assets/projects/emaar',
-        'src/assets/projects/hmr'
-    ];
+  const directories = [
+    'src/pages/projects',
+    'src/layouts',
+    'src/types',
+    'src/assets/projects/emaar',
+    'src/assets/projects/hmr',
+  ];
 
-    directories.forEach(dir => {
-        mkdirSync(dir, { recursive: true });
-        console.log(`Created directory: ${dir}`);
-    });
+  directories.forEach(dir => {
+    mkdirSync(dir, { recursive: true });
+    console.log(`Created directory: ${dir}`);
+  });
 
-    // Create project-specific asset directories
-    projects.forEach(project => {
-        const assetDir = `src/assets/projects/${project.location.toLowerCase()}/${project.id}`;
-        mkdirSync(assetDir, { recursive: true });
-        console.log(`Created asset directory: ${assetDir}`);
-    });
+  // Create project-specific asset directories
+  projects.forEach(project => {
+    const assetDir = `src/assets/projects/${project.location.toLowerCase()}/${project.id}`;
+    mkdirSync(assetDir, { recursive: true });
+    console.log(`Created asset directory: ${assetDir}`);
+  });
 };
 
 try {
-    // Create all necessary directories
-    createDirectories();
-    
-    // Generate project pages
-    projects.forEach(project => {
-        const filename = `${project.id}.astro`;
-        const filepath = join('src/pages/projects', filename);
-        const content = generateProjectPageTemplate(project);
-        
-        writeFileSync(filepath, content);
-        console.log(`Generated: ${filepath}`);
-    });
-    
-    console.log(`\nSuccessfully generated ${projects.length} project pages!`);
-    console.log('\nNext steps:');
-    console.log('1. Create src/layouts/ProjectLayout.astro (template provided)');
-    console.log('2. Create src/types/project.ts (template provided)');
-    console.log('3. Add your actual images to the asset directories');
-    console.log('4. Update the project descriptions and details in each file');
-    
+  // Create all necessary directories
+  createDirectories();
+
+  // Generate project pages
+  projects.forEach(project => {
+    const filename = `${project.id}.astro`;
+    const filepath = join('src/pages/projects', filename);
+    const content = generateProjectPageTemplate(project);
+
+    writeFileSync(filepath, content);
+    console.log(`Generated: ${filepath}`);
+  });
+
+  console.log(`\nSuccessfully generated ${projects.length} project pages!`);
+  console.log('\nNext steps:');
+  console.log('1. Create src/layouts/ProjectLayout.astro (template provided)');
+  console.log('2. Create src/types/project.ts (template provided)');
+  console.log('3. Add your actual images to the asset directories');
+  console.log('4. Update the project descriptions and details in each file');
 } catch (error) {
-    console.error('Error generating project pages:', error);
+  console.error('Error generating project pages:', error);
 }

@@ -26,7 +26,6 @@ const ProjectsSidebar: React.FC<ProjectsSidebarProps> = ({
   const [isScrolling, setIsScrolling] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
-
   useEffect(() => {
     // Setup intersection observer for highlighting active project
     setupIntersectionObserver();
@@ -186,7 +185,6 @@ const ProjectsSidebar: React.FC<ProjectsSidebarProps> = ({
       scrollSidebarToActiveProject(activeProjectId);
     }
   }, [activeProjectId, isScrolling]);
-
 
   const renderProjectItem = (project: Project) => {
     const isActive = activeProjectId === project.id;

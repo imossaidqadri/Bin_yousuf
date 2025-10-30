@@ -4,12 +4,12 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'poppins': ['Poppins', 'system-ui', 'sans-serif'],
+        poppins: ['Poppins', 'system-ui', 'sans-serif'],
       },
       colors: {
-        'primary': '#4c4c4c',
-        'secondary': '#666',
-        'accent': '#888',
+        primary: '#4c4c4c',
+        secondary: '#666',
+        accent: '#888',
       },
       animation: {
         'blur-in': 'blur-in 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -21,36 +21,36 @@ export default {
           '0%': {
             filter: 'blur(10px)',
             opacity: '0',
-            transform: 'translateY(-20px)'
+            transform: 'translateY(-20px)',
           },
           '100%': {
             filter: 'blur(0px)',
             opacity: '1',
-            transform: 'translateY(0px)'
-          }
+            transform: 'translateY(0px)',
+          },
         },
         'blur-out': {
           '0%': {
             filter: 'blur(0px)',
             opacity: '1',
-            transform: 'translateY(0px)'
+            transform: 'translateY(0px)',
           },
           '100%': {
             filter: 'blur(10px)',
             opacity: '0',
-            transform: 'translateY(-20px)'
-          }
+            transform: 'translateY(-20px)',
+          },
         },
-        'fadeInUp': {
+        fadeInUp: {
           '0%': {
             opacity: '0',
-            transform: 'translateY(40px)'
+            transform: 'translateY(40px)',
           },
           '100%': {
             opacity: '1',
-            transform: 'translateY(0)'
-          }
-        }
+            transform: 'translateY(0)',
+          },
+        },
       },
       spacing: {
         '110vh': '110vh',
@@ -64,30 +64,30 @@ export default {
         '10vw': '10vw',
       },
       zIndex: {
-        '5': '5',
-        '999': '999',
-        '1000': '1000',
-        '2000': '2000',
+        5: '5',
+        999: '999',
+        1000: '1000',
+        2000: '2000',
       },
       backdropBlur: {
-        '20': '20px',
+        20: '20px',
       },
       transitionTimingFunction: {
         'out-cubic': 'cubic-bezier(0.4, 0, 0.2, 1)',
       },
       boxShadow: {
-        'project': '0 20px 60px rgba(0, 0, 0, 0.15)',
+        project: '0 20px 60px rgba(0, 0, 0, 0.15)',
         'project-hover': '0 30px 80px rgba(0, 0, 0, 0.2)',
         'project-highlight': '0 40px 100px rgba(0, 0, 0, 0.25)',
-        'sidebar': '0 20px 60px rgba(0, 0, 0, 0.1)',
+        sidebar: '0 20px 60px rgba(0, 0, 0, 0.1)',
         'mobile-menu': '0 10px 30px rgba(0, 0, 0, 0.1)',
-        'modal': '0 40px 100px rgba(0, 0, 0, 0.3)',
+        modal: '0 40px 100px rgba(0, 0, 0, 0.3)',
       },
       maxWidth: {
-        '1400': '1400px',
+        1400: '1400px',
       },
       borderRadius: {
-        '20': '20px',
+        20: '20px',
       },
       fontSize: {
         'clamp-hero': 'clamp(40px, 7vw, 80px)',
@@ -100,7 +100,7 @@ export default {
   },
   plugins: [
     // Add plugin for blur utilities if needed
-    function({ addUtilities }) {
+    function ({ addUtilities }) {
       const newUtilities = {
         '.blur-out': {
           filter: 'blur(10px)',
@@ -130,8 +130,8 @@ export default {
         '.scroll-snap-start': {
           'scroll-snap-align': 'start',
         },
-      }
-      addUtilities(newUtilities)
-    }
+      };
+      addUtilities(newUtilities);
+    },
   ],
-}
+};

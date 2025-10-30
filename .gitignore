@@ -2,7 +2,10 @@
 dist/
 # generated types
 .astro/
-
+bun.lock
+bun.lockb
+.claude
+pnpm-lock.yaml
 # dependencies
 node_modules/
 

@@ -62,7 +62,7 @@ function formatTimestamp(date: Date): string {
 
 export const POST: APIRoute = async ({ request }) => {
   console.log('=== Google Sheets API Starting ===');
-  
+
   try {
     const body = await request.json();
     console.log('Request body received:', body);
@@ -248,7 +248,7 @@ export const POST: APIRoute = async ({ request }) => {
       }),
       {
         status: 200,
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
         },
@@ -257,8 +257,14 @@ export const POST: APIRoute = async ({ request }) => {
   } catch (error) {
     console.error('=== Google Sheets API Error ===');
     console.error('Error details:', error);
-    console.error('Error message:', error instanceof Error ? error.message : 'Unknown error');
-    console.error('Error stack:', error instanceof Error ? error.stack : 'No stack trace');
+    console.error(
+      'Error message:',
+      error instanceof Error ? error.message : 'Unknown error'
+    );
+    console.error(
+      'Error stack:',
+      error instanceof Error ? error.stack : 'No stack trace'
+    );
 
     return new Response(
       JSON.stringify({
@@ -268,7 +274,7 @@ export const POST: APIRoute = async ({ request }) => {
       }),
       {
         status: 500,
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
         },
