@@ -11,6 +11,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPath }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [projectCounts, setProjectCounts] = useState({ emaar: 5, hmr: 7 }); // Default values to prevent layout shift
   const [isClient, setIsClient] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const isHomePage = currentPath === '/' || currentPath === '';
   const isAboutPage = currentPath === '/about' || currentPath === '/about/';
@@ -79,6 +80,16 @@ const Navigation: React.FC<NavigationProps> = ({ currentPath }) => {
     return () => document.removeEventListener('click', handleClickOutside);
   }, [isMenuOpen]);
 
+  // Handle scroll for transparent header
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const toggleMenu = () => {
     if (isMenuOpen) {
       closeMenu();
@@ -110,8 +121,14 @@ const Navigation: React.FC<NavigationProps> = ({ currentPath }) => {
     }
   };
 
+  const isTransparent = !isScrolled;
+
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-[10px] z-[1000] border-b border-black/10 will-change-transform">
+    <nav className={`fixed top-0 left-0 right-0 z-[1000] will-change-transform transition-all duration-300 ${
+      isTransparent
+        ? 'bg-white/30 backdrop-blur-md border-b border-white/30'
+        : 'bg-white/95 backdrop-blur-[10px] border-b border-black/10'
+    }`}>
       <div className="flex justify-between items-center max-w-[1400px] mx-auto px-6 py-4">
         <div className="flex items-center gap-5">
           <a href="/" className="flex items-center gap-3 no-underline group">
@@ -130,8 +147,10 @@ const Navigation: React.FC<NavigationProps> = ({ currentPath }) => {
         <div className="hidden md:flex items-center gap-[60px]">
           <a
             href="/"
-            className={`text-sm font-normal transition-colors duration-300 hover:text-black whitespace-nowrap ${
-              isHomePage ? 'text-black' : 'text-neutral-500'
+            className={`text-sm font-normal transition-colors duration-300 whitespace-nowrap ${
+              isHomePage
+                ? 'text-black hover:text-black'
+                : 'text-neutral-500 hover:text-black'
             }`}
           >
             Projects
@@ -153,8 +172,10 @@ const Navigation: React.FC<NavigationProps> = ({ currentPath }) => {
         <div className="hidden md:flex items-center gap-[30px]">
           <a
             href="/about"
-            className={`text-sm font-normal transition-colors duration-300 hover:text-black whitespace-nowrap ${
-              isAboutPage ? 'text-black' : 'text-neutral-500'
+            className={`text-sm font-normal transition-colors duration-300 whitespace-nowrap ${
+              isAboutPage
+                ? 'text-black hover:text-black'
+                : 'text-neutral-500 hover:text-black'
             }`}
           >
             About
