@@ -1,6 +1,7 @@
 // src/components/About/AboutUsPage.tsx - Updated with new WhatsApp message
 import React, { useEffect, useRef } from 'react';
 import { getProjectCounts } from '../../data/projects';
+import { Award } from 'lucide-react';
 
 // Import the partner logos and hero image
 import emaarLogo from '../../assets/projects/emaar-logo.png';
@@ -40,39 +41,112 @@ const AboutUsPage: React.FC = () => {
 
   return (
     <main className="min-h-screen bg-white">
-      {/* Hero Image Section */}
-      <section className="relative w-full overflow-hidden">
+      {/* Hero Image Section - Enhanced */}
+      <section
+        className="relative w-full overflow-hidden shadow-2xl"
+        aria-label="Award recognition hero section"
+      >
         <div className="relative w-full">
-          {/* Responsive container with optimized heights for each breakpoint */}
-          <div className="relative w-full h-[280px] xs:h-[320px] sm:h-[400px] md:h-[500px] lg:h-[600px] xl:h-[700px] 2xl:h-[800px]">
-            <img
-              src={heroImage.src}
-              alt="BinYousuf Group wins Emaar Brokers Spotlight Award"
-              className="w-full h-full object-cover object-center transition-all duration-300"
-              loading="eager"
+          {/* Responsive image container with aspect ratio */}
+          <div className="relative w-full aspect-[4/3] sm:aspect-[16/9] md:aspect-[21/9] lg:aspect-[3/1] max-h-[800px]">
+            {/* Vignette overlay for visual focus */}
+            <div
+              className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-black/15 pointer-events-none z-10"
+              aria-hidden="true"
             />
+
+            <picture>
+              <source
+                media="(max-width: 640px)"
+                srcSet={heroImage.src}
+                type="image/webp"
+              />
+              <source
+                media="(min-width: 641px)"
+                srcSet={heroImage.src}
+                type="image/webp"
+              />
+              <img
+                src={heroImage.src}
+                alt="BinYousuf Group team of seven members standing on stage at Emaar Pakistan Brokers Spotlight Award ceremony, holding award trophy, with branded backdrop"
+                className="w-full h-full object-cover object-[center_40%] sm:object-[center_35%] transition-all duration-700 ease-out"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                style={{
+                  animation: 'scaleIn 1.2s ease-out forwards'
+                }}
+              />
+            </picture>
+
+            {/* Screen reader context */}
+            <div className="sr-only">
+              BinYousuf Group receiving the Emaar Brokers Spotlight Award, demonstrating excellence in waterfront real estate services.
+            </div>
           </div>
         </div>
-        {/* Caption with responsive positioning */}
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent py-3 sm:py-4 md:py-6 lg:py-8">
+
+        {/* Enhanced caption with visual hierarchy */}
+        <div
+          className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/85 via-black/60 to-transparent pt-12 sm:pt-16 pb-6 sm:pb-8 md:pb-10 lg:pb-12"
+          role="region"
+          aria-label="Award achievement caption"
+        >
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <p className="text-center text-white text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl font-semibold tracking-wide">
-              Award-Winning Real Estate Agency
-            </p>
+            <div className="text-center space-y-2 sm:space-y-3">
+              {/* Award badge */}
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/30 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 mb-1 sm:mb-2">
+                <Award className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400 flex-shrink-0" aria-hidden="true" />
+                <span className="text-white text-xs sm:text-sm font-medium">Emaar Brokers Spotlight Award</span>
+              </div>
+
+              {/* Main heading */}
+              <h1 className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight drop-shadow-lg">
+                Award-Winning Real Estate Agency
+              </h1>
+
+              {/* Subtext */}
+              <p className="text-white/95 text-xs sm:text-sm md:text-base lg:text-lg font-medium max-w-2xl mx-auto">
+                Recognized for excellence in waterfront property sales
+              </p>
+            </div>
           </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div
+          className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-20 animate-bounce hidden sm:block"
+          aria-hidden="true"
+        >
+          <svg
+            className="w-5 h-5 sm:w-6 sm:h-6 text-white/60"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
         </div>
       </section>
+
+      {/* Subtle section divider */}
+      <div className="h-px bg-gradient-to-r from-transparent via-neutral-200 to-transparent" aria-hidden="true" />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 bg-gradient-to-br from-neutral-50 to-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center">
-            <h1
+            <h2
               ref={el => (sectionRefs.current[0] = el)}
               className="text-5xl lg:text-6xl font-semibold text-[#4c4c4c] mb-8 opacity-0 transform translate-y-8 transition-all duration-1000 ease-out"
             >
               About Us
-            </h1>
+            </h2>
             <div className="w-24 h-1 bg-[#4c4c4c] mx-auto mb-8"></div>
             <p
               ref={el => (sectionRefs.current[1] = el)}
