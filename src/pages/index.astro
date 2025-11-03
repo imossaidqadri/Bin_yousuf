@@ -109,7 +109,7 @@ const homepageStructuredData = {
   <!-- Structured Data for Homepage -->
   <script type="application/ld+json" set:html={JSON.stringify(homepageStructuredData)} />
   
-  <NavigationIsland currentPath={currentPath} client:load />
+  <NavigationIsland currentPath={currentPath} />
   
   <!-- Hero Section with SEO-optimized content -->
   <section class="w-full mt-10" aria-label="Featured Waterfront Properties">
@@ -145,7 +145,7 @@ const homepageStructuredData = {
   
   <!-- Main Projects Content -->
   <main class="pt-0" role="main" aria-label="Waterfront Properties Portfolio">
-    <ProjectScrollAnimationIsland projects={projects} client:visible>
+    <ProjectScrollAnimationIsland projects={projects}>
       <ProjectsList 
         projects={projects}
         emaarProjects={emaarProjects}
@@ -156,7 +156,7 @@ const homepageStructuredData = {
   </main>
   
   <!-- WhatsApp Button Island -->
-  <WhatsAppButtonIsland client:visible />
+  <WhatsAppButtonIsland />
 </Layout>
 
 <style>

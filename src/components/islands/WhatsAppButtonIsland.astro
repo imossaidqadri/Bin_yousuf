@@ -23,79 +23,99 @@
     
     if (!buttonElement || !iconElement) return;
 
-    // Load GSAP directly
-    const gsapModule = await import('gsap');
-    const gsap = gsapModule.default;
+    try {
+      // Load GSAP with error handling
+      const gsapModule = await import('gsap');
+      const gsap = gsapModule.default;
 
-    // Initial entrance animation
-    gsap.fromTo(
-      buttonElement,
-      { scale: 0.8, opacity: 0, y: 50 },
-      {
-        scale: 1,
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: 'back.out(1.7)',
-        delay: 1,
-      }
-    );
+      // Initial entrance animation - start with opacity 0 and animate to visible
+      gsap.fromTo(
+        buttonElement,
+        { scale: 0.8, opacity: 0, y: 50 },
+        {
+          scale: 1,
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'back.out(1.7)',
+          delay: 0.5,
+          // Remove the opacity-0 class after animation starts
+          onStart: () => {
+            buttonElement.classList.remove('opacity-0');
+          }
+        }
+      );
 
-    // Subtle pulse effect on icon
-    gsap.to(iconElement, {
-      scale: 1.1,
-      duration: 2.5,
-      ease: 'power2.inOut',
-      yoyo: true,
-      repeat: -1,
-    });
-
-    // Click handler
-    const handleWhatsAppClick = (e) => {
-      // Click animation
-      gsap.to(buttonElement, {
-        scale: 0.95,
-        duration: 0.1,
-        yoyo: true,
-        repeat: 1,
-        ease: 'power2.inOut',
-      });
-
-      const message = "Hi! I'm interested in learning more about EMAAR & HMR waterfront properties. Could you please provide me with more information?";
-      const whatsappUrl = `https://wa.me/923360878079?text=${encodeURIComponent(message)}`;
-      window.open(whatsappUrl, '_blank');
-    };
-
-    // Mouse enter handler
-    const handleMouseEnter = () => {
+      // Subtle pulse effect on icon
       gsap.to(iconElement, {
-        rotation: 15,
         scale: 1.1,
-        duration: 0.3,
-        ease: 'power2.out',
+        duration: 2.5,
+        ease: 'power2.inOut',
+        yoyo: true,
+        repeat: -1,
+        repeatDelay: 0.5
       });
-    };
 
-    // Mouse leave handler
-    const handleMouseLeave = () => {
-      gsap.to(iconElement, {
-        rotation: 0,
-        scale: 1,
-        duration: 0.3,
-        ease: 'power2.out',
-      });
-    };
+      // Click handler
+      const handleWhatsAppClick = (e) => {
+        // Click animation
+        gsap.to(buttonElement, {
+          scale: 0.95,
+          duration: 0.1,
+          yoyo: true,
+          repeat: 1,
+          ease: 'power2.inOut',
+        });
 
-    // Add event listeners
-    buttonElement.addEventListener('click', handleWhatsAppClick);
-    buttonElement.addEventListener('mouseenter', handleMouseEnter);
-    buttonElement.addEventListener('mouseleave', handleMouseLeave);
+        const message = "Hi! I'm interested in learning more about EMAAR & HMR waterfront properties. Could you please provide me with more information?";
+        const whatsappUrl = `https://wa.me/923360878079?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+      };
 
-    // Cleanup when the page changes
-    document.addEventListener('astro:page-load', () => {
-      buttonElement.removeEventListener('click', handleWhatsAppClick);
-      buttonElement.removeEventListener('mouseenter', handleMouseEnter);
-      buttonElement.removeEventListener('mouseleave', handleMouseLeave);
-    });
+      // Mouse enter handler
+      const handleMouseEnter = () => {
+        gsap.to(iconElement, {
+          rotation: 15,
+          scale: 1.1,
+          duration: 0.3,
+          ease: 'power2.out',
+        });
+      };
+
+      // Mouse leave handler
+      const handleMouseLeave = () => {
+        gsap.to(iconElement, {
+          rotation: 0,
+          scale: 1,
+          duration: 0.3,
+          ease: 'power2.out',
+        });
+      };
+
+      // Add event listeners
+      buttonElement.addEventListener('click', handleWhatsAppClick);
+      buttonElement.addEventListener('mouseenter', handleMouseEnter);
+      buttonElement.addEventListener('mouseleave', handleMouseLeave);
+
+      // Cleanup when the page changes
+      const cleanup = () => {
+        buttonElement.removeEventListener('click', handleWhatsAppClick);
+        buttonElement.removeEventListener('mouseenter', handleMouseEnter);
+        buttonElement.removeEventListener('mouseleave', handleMouseLeave);
+      };
+
+      // Listen for Astro page transitions
+      document.addEventListener('astro:page-load', cleanup);
+      
+      // Also listen for beforeunload in case astro:page-load doesn't fire
+      window.addEventListener('beforeunload', cleanup);
+      
+    } catch (error) {
+      console.error('Error initializing WhatsApp button animations:', error);
+      // Fallback behavior if GSAP fails to load
+      buttonElement.classList.remove('opacity-0');
+      buttonElement.style.opacity = '1';
+      buttonElement.style.transform = 'scale(1)';
+    }
   })();
 </script>

@@ -23,7 +23,13 @@ const StickyWhatsAppButton: React.FC = () => {
         y: 0,
         duration: 0.8,
         ease: 'back.out(1.7)',
-        delay: 1,
+        delay: 0.5,
+        // Remove the opacity-0 class after animation starts
+        onStart: () => {
+          if (buttonRef.current) {
+            buttonRef.current.classList.remove('opacity-0');
+          }
+        }
       }
     );
 
@@ -34,6 +40,7 @@ const StickyWhatsAppButton: React.FC = () => {
       ease: 'power2.inOut',
       yoyo: true,
       repeat: -1,
+      repeatDelay: 0.5
     });
   }, [isClient]);
 
@@ -87,7 +94,7 @@ const StickyWhatsAppButton: React.FC = () => {
       onClick={handleWhatsAppClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="fixed bottom-6 right-6 bg-[#121212] hover:bg-black text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 will-change-transform z-[9999] flex items-center gap-3 font-medium hover:-translate-y-0.5"
+      className="fixed bottom-6 right-6 bg-[#121212] hover:bg-black text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 will-change-transform z-[9999] flex items-center gap-3 font-medium hover:-translate-y-0.5 opacity-0"
       aria-label="Contact us on WhatsApp"
       title="Chat with us on WhatsApp"
     >

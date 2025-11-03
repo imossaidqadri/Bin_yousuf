@@ -380,7 +380,7 @@ const formattedAboutContent = formatProjectText(project.aboutProject);
 </head>
 <body>
     <!-- Main Navigation Header -->
-    <NavigationIsland currentPath={Astro.url.pathname} client:load />
+    <NavigationIsland currentPath={Astro.url.pathname} />
     
     <!-- Main Content -->
     <main class="project-main">
@@ -629,7 +629,7 @@ const formattedAboutContent = formatProjectText(project.aboutProject);
 
     
     <!-- WhatsApp Button Island -->
-    <WhatsAppButtonIsland client:visible />
+    <WhatsAppButtonIsland />
     
     <!-- Footer -->
     <Footer client:visible />

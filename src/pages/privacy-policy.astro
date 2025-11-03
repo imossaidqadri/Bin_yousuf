@@ -12,9 +12,9 @@ const currentPath = Astro.url.pathname;
   title="Privacy Policy - BYG | BinYousuf Group" 
   description="Privacy Policy for BinYousuf Group - Learn how we collect, use, and protect your personal information when you use our real estate services."
 >
-  <NavigationIsland currentPath={currentPath} client:load />
+  <NavigationIsland currentPath={currentPath} />
   <PolicyPage client:visible />
-  <WhatsAppButtonIsland client:visible />
+  <WhatsAppButtonIsland />
 </Layout>
 
 <style>
