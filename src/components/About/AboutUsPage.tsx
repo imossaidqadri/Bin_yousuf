@@ -74,14 +74,15 @@ const AboutUsPage: React.FC = () => {
                 fetchPriority="high"
                 decoding="async"
                 style={{
-                  animation: 'scaleIn 1.2s ease-out forwards'
+                  animation: 'scaleIn 1.2s ease-out forwards',
                 }}
               />
             </picture>
 
             {/* Screen reader context */}
             <div className="sr-only">
-              BinYousuf Group receiving the Emaar Brokers Spotlight Award, demonstrating excellence in waterfront real estate services.
+              BinYousuf Group receiving the Emaar Brokers Spotlight Award,
+              demonstrating excellence in waterfront real estate services.
             </div>
           </div>
         </div>
@@ -96,8 +97,13 @@ const AboutUsPage: React.FC = () => {
             <div className="text-center space-y-2 sm:space-y-3">
               {/* Award badge */}
               <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/30 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 mb-1 sm:mb-2">
-                <Award className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400 flex-shrink-0" aria-hidden="true" />
-                <span className="text-white text-xs sm:text-sm font-medium">Emaar Brokers Spotlight Award</span>
+                <Award
+                  className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400 flex-shrink-0"
+                  aria-hidden="true"
+                />
+                <span className="text-white text-xs sm:text-sm font-medium">
+                  Emaar Brokers Spotlight Award
+                </span>
               </div>
 
               {/* Main heading */}
@@ -135,7 +141,10 @@ const AboutUsPage: React.FC = () => {
       </section>
 
       {/* Subtle section divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-neutral-200 to-transparent" aria-hidden="true" />
+      <div
+        className="h-px bg-gradient-to-r from-transparent via-neutral-200 to-transparent"
+        aria-hidden="true"
+      />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 bg-gradient-to-br from-neutral-50 to-white">

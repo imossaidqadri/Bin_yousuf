@@ -124,11 +124,13 @@ const Navigation: React.FC<NavigationProps> = ({ currentPath }) => {
   const isTransparent = !isScrolled;
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-[1000] will-change-transform transition-all duration-300 ${
-      isTransparent
-        ? 'bg-white/30 backdrop-blur-md border-b border-white/30'
-        : 'bg-white/95 backdrop-blur-[10px] border-b border-black/10'
-    }`}>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-[1000] will-change-transform transition-all duration-300 ${
+        isTransparent
+          ? 'bg-white/30 backdrop-blur-md border-b border-white/30'
+          : 'bg-white/95 backdrop-blur-[10px] border-b border-black/10'
+      }`}
+    >
       <div className="flex justify-between items-center max-w-[1400px] mx-auto px-6 py-4">
         <div className="flex items-center gap-5">
           <a href="/" className="flex items-center gap-3 no-underline group">
