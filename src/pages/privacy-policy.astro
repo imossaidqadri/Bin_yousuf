@@ -1,7 +1,8 @@
 ---
 // src/pages/privacy-policy.astro
 import Layout from '../layouts/Layout.astro';
-import Navigation from '../components/Navigation.tsx';
+import NavigationIsland from '../components/islands/NavigationIsland.astro';
+import WhatsAppButtonIsland from '../components/islands/WhatsAppButtonIsland.astro';
 import PolicyPage from '../components/Policy/PolicyPage.tsx';
 
 const currentPath = Astro.url.pathname;
@@ -11,8 +12,9 @@ const currentPath = Astro.url.pathname;
   title="Privacy Policy - BYG | BinYousuf Group" 
   description="Privacy Policy for BinYousuf Group - Learn how we collect, use, and protect your personal information when you use our real estate services."
 >
-  <Navigation currentPath={currentPath} client:load />
-  <PolicyPage client:load />
+  <NavigationIsland currentPath={currentPath} client:load />
+  <PolicyPage client:visible />
+  <WhatsAppButtonIsland client:visible />
 </Layout>
 
 <style>

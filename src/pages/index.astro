@@ -1,7 +1,9 @@
 ---
 // src/pages/index.astro - Enhanced with SEO optimization
 import Layout from '../layouts/Layout.astro';
-import Navigation from '../components/Navigation.tsx';
+import NavigationIsland from '../components/islands/NavigationIsland.astro';
+import ProjectScrollAnimationIsland from '../components/islands/ProjectScrollAnimationIsland.astro';
+import WhatsAppButtonIsland from '../components/islands/WhatsAppButtonIsland.astro';
 import ProjectsList from '../components/ProjectsList.tsx';
 import ProjectsSlideshow from '../components/Slideshow.tsx';
 import { projects } from '../data/projects';
@@ -107,7 +109,7 @@ const homepageStructuredData = {
   <!-- Structured Data for Homepage -->
   <script type="application/ld+json" set:html={JSON.stringify(homepageStructuredData)} />
   
-  <Navigation currentPath={currentPath} client:load />
+  <NavigationIsland currentPath={currentPath} client:load />
   
   <!-- Hero Section with SEO-optimized content -->
   <section class="w-full mt-10" aria-label="Featured Waterfront Properties">
@@ -117,7 +119,7 @@ const homepageStructuredData = {
       showDots={true}
       showArrows={false}
       height="60vh"
-      client:load 
+      client:visible 
     />
   </section>
   
@@ -143,13 +145,18 @@ const homepageStructuredData = {
   
   <!-- Main Projects Content -->
   <main class="pt-0" role="main" aria-label="Waterfront Properties Portfolio">
-    <ProjectsList 
-      projects={projects}
-      emaarProjects={emaarProjects}
-      hmrProjects={hmrProjects}
-      client:load 
-    />
+    <ProjectScrollAnimationIsland projects={projects} client:visible>
+      <ProjectsList 
+        projects={projects}
+        emaarProjects={emaarProjects}
+        hmrProjects={hmrProjects}
+        client:visible 
+      />
+    </ProjectScrollAnimationIsland>
   </main>
+  
+  <!-- WhatsApp Button Island -->
+  <WhatsAppButtonIsland client:visible />
 </Layout>
 
 <style>

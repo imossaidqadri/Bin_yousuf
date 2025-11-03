@@ -1,15 +1,17 @@
 ---
 // src/pages/about.astro - Fixed with proper layout and favicon
 import Layout from '../layouts/Layout.astro';
-import Navigation from '../components/Navigation.tsx';
+import NavigationIsland from '../components/islands/NavigationIsland.astro';
+import WhatsAppButtonIsland from '../components/islands/WhatsAppButtonIsland.astro';
 import AboutUsPage from '../components/About/AboutUsPage.tsx';
 
 const currentPath = Astro.url.pathname;
 ---
 
 <Layout title="About Us - BYG | Specialists in Waterfront Properties" description="BinYousuf Group - Official sales partners of HMR Waterfront and Emaar Oceanfront. Specialists in waterfront properties in Karachi.">
-  <Navigation currentPath={currentPath} client:load />
-  <AboutUsPage client:load />
+  <NavigationIsland currentPath={currentPath} client:load />
+  <AboutUsPage client:visible />
+  <WhatsAppButtonIsland client:visible />
 </Layout>
 
 <style>

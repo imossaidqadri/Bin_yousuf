@@ -5,7 +5,11 @@ dist/
 bun.lock
 bun.lockb
 .claude
+WEBSITE_ISSUES.md
+ASTRO_ISLANDS_ACTION_PLAN.md
+GIT_BRANCHING_STRATEGY.md
 pnpm-lock.yaml
+QWEN.md
 # dependencies
 node_modules/
 

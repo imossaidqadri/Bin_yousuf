@@ -1,0 +1,53 @@
+---
+// src/components/islands/utils/GSAPLoader.astro
+// Utility component to load GSAP library dynamically in islands with optimized loading
+---
+
+<script>
+  // Check if GSAP is already loaded globally
+  if (typeof window !== 'undefined' && !window.gsapLoader) {
+    window.gsapLoader = {
+      loaded: false,
+      loadingPromise: null,
+      
+      async loadGSAP() {
+        if (this.loaded && window.gsap) {
+          return window.gsap;
+        }
+        
+        // If already loading, return the existing promise
+        if (this.loadingPromise) {
+          return this.loadingPromise;
+        }
+        
+        // Create a new loading promise
+        this.loadingPromise = new Promise(async (resolve, reject) => {
+          try {
+            // Dynamically import GSAP and plugins
+            const [gsapModule, ScrollToPluginModule] = await Promise.all([
+              import('gsap'),
+              import('gsap/ScrollToPlugin')
+            ]);
+            
+            const gsap = gsapModule.default;
+            const ScrollToPlugin = ScrollToPluginModule.default;
+            
+            // Register plugins
+            gsap.registerPlugin(ScrollToPlugin);
+            
+            // Store in global for reuse
+            window.gsap = gsap;
+            this.loaded = true;
+            
+            resolve(gsap);
+          } catch (error) {
+            console.error('Failed to load GSAP:', error);
+            reject(error);
+          }
+        });
+        
+        return this.loadingPromise;
+      }
+    };
+  }
+</script>

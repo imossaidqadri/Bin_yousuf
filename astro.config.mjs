@@ -18,13 +18,18 @@ export default defineConfig({
 
   output: 'server',
   adapter: vercel(),
+  
+  // Enable islands architecture
+  islands: true,
 
+  // Vite configuration for optimized GSAP handling
   vite: {
     build: {
       rollupOptions: {
         output: {
           globals: {
             'gsap/ScrollToPlugin': 'ScrollToPlugin',
+            'gsap/ScrollTrigger': 'ScrollTrigger',
           },
         },
       },

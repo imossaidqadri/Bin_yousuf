@@ -1,0 +1,86 @@
+---
+// src/components/islands/HeroAnimationIsland.astro
+interface Props {
+  projects: Array<{
+    id: string;
+    name: string;
+    location: string;
+  }>;
+}
+
+const { projects } = Astro.props;
+const heroWords = projects.map(p => p.name.toUpperCase());
+---
+
+<div id="hero-animation-island" class="h-[110vh] flex items-center justify-start relative pl-[10vw]">
+  <div class="text-clamp-title font-medium text-[#4c4c4c] tracking-[-0.02em] text-left relative z-[2]">
+    <span class="mr-[0.1em]">BYG </span>
+    <span
+      id="animatedText"
+      class="relative inline-block min-w-[1em] transition-all duration-[800ms] ease-[cubic-bezier(0.4,0,0.2,1)]"
+    >
+      {projects[0]?.name.toUpperCase() || 'PANORAMA'}
+    </span>
+    <div
+      class="block text-neutral-500 mt-[0.4em] tracking-[0.18em] uppercase font-semibold leading-tight w-full sm:w-auto"
+      style={{
+        marginLeft: '0.4em',
+        fontSize: 'clamp(6px, 1vw, 18px)', // Responsive font size for mobile
+        maxWidth: '80vw', // On mobile, max width is 80vw
+      }}
+    >
+      Official Partners With EMAAR® Oceanfront & HMR® Waterfront
+    </div>
+  </div>
+</div>
+
+<script>
+  // Client-side script for the hero animation island
+  let currentIndex = 0;
+  let intervalId = null;
+  
+  // Pass the hero words data to the client
+  const heroWords = JSON.parse('<%= JSON.stringify(heroWords) %>');
+
+  const animatedText = document.getElementById('animatedText');
+  if (animatedText) {
+    // Use CSS classes for animations instead of direct GSAP for this simple case
+    // The blur-in and blur-out classes are defined in global CSS
+    const changeWord = () => {
+      // Start blur-out animation
+      animatedText.classList.add('blur-out');
+
+      setTimeout(() => {
+        // Change the word
+        currentIndex = (currentIndex + 1) % heroWords.length;
+        animatedText.textContent = heroWords[currentIndex];
+
+        // Remove blur-out and add blur-in
+        animatedText.classList.remove('blur-out');
+        animatedText.classList.add('blur-in');
+
+        setTimeout(() => {
+          // Remove blur-in class after animation completes
+          animatedText.classList.remove('blur-in');
+        }, 800); // Duration matches the blur-in animation
+      }, 400); // Duration matches the blur-out animation
+    };
+
+    // Set initial word
+    if (heroWords.length > 0) {
+      animatedText.textContent = heroWords[0];
+    }
+
+    // Start the animation cycle after initial delay
+    setTimeout(() => {
+      intervalId = setInterval(changeWord, 3000); // Change word every 3 seconds
+    }, 2000); // Initial delay of 2 seconds
+  }
+
+  // Cleanup when the page changes
+  document.addEventListener('astro:page-load', () => {
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+  });
+</script>

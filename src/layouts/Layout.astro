@@ -1,7 +1,8 @@
 ---
 // src/layouts/Layout.astro - Updated without WhatsApp button
 import Footer from '../components/Footer.tsx';
-import StickyWhatsAppButton from '../components/StickyWhatsAppButton.tsx';
+import NavigationIsland from '../components/islands/NavigationIsland.astro';
+import WhatsAppButtonIsland from '../components/islands/WhatsAppButtonIsland.astro';
 import logoImage from '../assets/projects/logo.webp';
 import ogImage from '../assets/projects/open-graph-img.webp';
 import ogImageSquare from '../assets/projects/open-graph-img-square.webp';
@@ -130,8 +131,8 @@ const { title, description = "BYG-BinYousufGroup" } = Astro.props;
     <!-- Footer Component -->
     <Footer client:load />
     
-    <!-- Sticky WhatsApp Button -->
-    <StickyWhatsAppButton client:load />
+    <!-- WhatsApp Button Island -->
+    <WhatsAppButtonIsland client:visible />
     
     <style is:global>
       @import '../styles/global.css';

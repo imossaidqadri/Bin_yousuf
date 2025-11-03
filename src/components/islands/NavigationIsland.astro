@@ -1,0 +1,324 @@
+---
+// src/components/islands/NavigationIsland.astro
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+const isHomePage = currentPath === '/' || currentPath === '';
+const isAboutPage = currentPath === '/about' || currentPath === '/about/';
+---
+
+<nav 
+  id="navigation-island"
+  class="fixed top-0 left-0 right-0 z-[1000] will-change-transform transition-all duration-300 bg-white/30 backdrop-blur-md border-b border-white/30"
+>
+  <div class="flex justify-between items-center max-w-[1400px] mx-auto px-6 py-4">
+    <div class="flex items-center gap-5">
+      <a href="/" class="flex items-center gap-3 no-underline group">
+        <!-- Logo Image with fixed dimensions to prevent layout shift -->
+        <img
+          src="/src/assets/projects/logo.webp"
+          alt="BYG Logo"
+          class="h-8 w-auto transition-all duration-300 group-hover:brightness-110"
+          width="24"
+          height="24"
+        />
+      </a>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex items-center gap-[60px]">
+      <a
+        href="/"
+        class={`text-sm font-normal transition-colors duration-300 whitespace-nowrap ${
+          isHomePage
+            ? 'text-black hover:text-black'
+            : 'text-neutral-500 hover:text-black'
+        }`}
+      >
+        Projects
+      </a>
+      <a
+        href="/#project-1"
+        class="text-neutral-500 text-sm font-normal transition-colors duration-300 hover:text-black whitespace-nowrap"
+      >
+        Emaar
+      </a>
+      <a
+        href="/#project-6"
+        class="text-neutral-500 text-sm font-normal transition-colors duration-300 hover:text-black whitespace-nowrap"
+      >
+        HMR Waterfront
+      </a>
+    </div>
+
+    <div class="hidden md:flex items-center gap-[30px]">
+      <a
+        href="/about"
+        class={`text-sm font-normal transition-colors duration-300 whitespace-nowrap ${
+          isAboutPage
+            ? 'text-black hover:text-black'
+            : 'text-neutral-500 hover:text-black'
+        }`}
+      >
+        About
+      </a>
+      <button
+        class="text-neutral-500 text-sm font-normal transition-colors duration-300 hover:text-black bg-transparent border-none cursor-pointer font-inherit whitespace-nowrap"
+        onclick="handleContactClick()"
+      >
+        Contact
+      </button>
+    </div>
+
+    <!-- Mobile Hamburger Menu -->
+    <div class="flex items-center gap-3 md:hidden">
+      <!-- Hamburger Button -->
+      <button
+        id="hamburgerBtn"
+        class="bg-transparent border-none cursor-pointer p-2 flex flex-col gap-1 transition-all duration-300"
+        aria-label="Toggle navigation"
+        onclick="toggleMenu()"
+        style="min-width: '40px'; min-height: '40px'"
+      >
+        <span
+          id="hamburger-span-1"
+          class="w-5 h-0.5 bg-neutral-800 transition-all duration-300 rounded-[1px]"
+        />
+        <span
+          id="hamburger-span-2"
+          class="w-5 h-0.5 bg-neutral-800 transition-all duration-300 rounded-[1px]"
+        />
+        <span
+          id="hamburger-span-3"
+          class="w-5 h-0.5 bg-neutral-800 transition-all duration-300 rounded-[1px]"
+        />
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div
+    id="mobileMenu"
+    class="fixed top-20 left-0 right-0 bg-white backdrop-blur-[20px] border-b border-black/10 transform transition-all duration-300 ease-out shadow-[0_10px_30px_rgba(0,0,0,0.1)] md:hidden -translate-y-full opacity-0 invisible"
+  >
+    <div class="px-10 py-[30px] flex flex-col gap-5">
+      <a
+        href="/"
+        class={`text-neutral-500 text-base font-medium transition-all duration-300 py-3 
+          border-b border-black/5 flex justify-between items-center
+          hover:text-black hover:translate-x-[5px] ${
+            isHomePage ? 'text-black' : ''
+          }`}
+        onclick="closeMenu()"
+      >
+        Projects
+      </a>
+      <a
+        href="/#project-1"
+        class="text-neutral-500 text-base font-medium transition-all duration-300 py-3 
+          border-b border-black/5 flex justify-between items-center
+          hover:text-black hover:translate-x-[5px]"
+        onclick="closeMenu()"
+      >
+        Emaar
+        <span class="bg-neutral-600 text-white text-xs font-semibold px-2 py-1 rounded-xl min-w-[20px] text-center">
+          5
+        </span>
+      </a>
+      <a
+        href="/#project-6"
+        class="text-neutral-500 text-base font-medium transition-all duration-300 py-3 
+          border-b border-black/5 flex justify-between items-center
+          hover:text-black hover:translate-x-[5px]"
+        onclick="closeMenu()"
+      >
+        HMR Waterfront
+        <span class="bg-neutral-600 text-white text-xs font-semibold px-2 py-1 rounded-xl min-w-[20px] text-center">
+          7
+        </span>
+      </a>
+      <a
+        href="/about"
+        class={`text-neutral-500 text-base font-medium transition-all duration-300 py-3 
+          border-b border-black/5 flex justify-between items-center
+          hover:text-black hover:translate-x-[5px] ${
+            isAboutPage ? 'text-black' : ''
+          }`}
+        onclick="closeMenu()"
+      >
+        About
+      </a>
+      <button
+        class="text-neutral-500 text-base font-medium transition-all duration-300 py-3 
+          border-b border-black/5 flex justify-between items-center
+          hover:text-black hover:translate-x-[5px] bg-transparent border-none cursor-pointer 
+          text-left w-full font-inherit"
+        onclick="handleContactClick(); closeMenu();"
+      >
+        Contact
+      </button>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Navigation state
+  let isMenuOpen = false;
+  let isScrolled = false;
+
+  // Navigation element
+  const navElement = document.getElementById('navigation-island');
+  
+  const handleScroll = () => {
+    const scrolled = window.scrollY > 50;
+    
+    if (scrolled !== isScrolled) {
+      isScrolled = scrolled;
+      
+      if (scrolled) {
+        navElement.classList.remove(
+          'bg-white/30',
+          'backdrop-blur-md',
+          'border-b',
+          'border-white/30'
+        );
+        navElement.classList.add(
+          'bg-white/95',
+          'backdrop-blur-[10px]',
+          'border-b',
+          'border-black/10'
+        );
+      } else {
+        navElement.classList.remove(
+          'bg-white/95',
+          'backdrop-blur-[10px]',
+          'border-b',
+          'border-black/10'
+        );
+        navElement.classList.add(
+          'bg-white/30',
+          'backdrop-blur-md',
+          'border-b',
+          'border-white/30'
+        );
+      }
+    }
+  };
+
+  // Add scroll listener
+  window.addEventListener('scroll', handleScroll);
+  
+  // Add initial scroll detection
+  handleScroll();
+
+  // Toggle menu function
+  function toggleMenu() {
+    if (isMenuOpen) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  }
+
+  // Open menu function
+  function openMenu() {
+    isMenuOpen = true;
+    document.body.style.overflow = 'hidden';
+    
+    const mobileMenu = document.getElementById('mobileMenu');
+    const hamburgerSpan1 = document.getElementById('hamburger-span-1');
+    const hamburgerSpan2 = document.getElementById('hamburger-span-2');
+    const hamburgerSpan3 = document.getElementById('hamburger-span-3');
+    
+    if (mobileMenu) {
+      mobileMenu.classList.remove('-translate-y-full', 'opacity-0', 'invisible');
+      mobileMenu.classList.add('translate-y-0', 'opacity-100', 'visible');
+    }
+    
+    if (hamburgerSpan1) {
+      hamburgerSpan1.classList.add('transform', 'rotate-45', 'translate-x-[6px]', 'translate-y-[6px]');
+    }
+    if (hamburgerSpan2) {
+      hamburgerSpan2.classList.add('opacity-0');
+    }
+    if (hamburgerSpan3) {
+      hamburgerSpan3.classList.add('transform', '-rotate-45', 'translate-x-[6px]', '-translate-y-[6px]');
+    }
+  }
+
+  // Close menu function
+  function closeMenu() {
+    isMenuOpen = false;
+    document.body.style.overflow = '';
+    
+    const mobileMenu = document.getElementById('mobileMenu');
+    const hamburgerSpan1 = document.getElementById('hamburger-span-1');
+    const hamburgerSpan2 = document.getElementById('hamburger-span-2');
+    const hamburgerSpan3 = document.getElementById('hamburger-span-3');
+    
+    if (mobileMenu) {
+      mobileMenu.classList.remove('translate-y-0', 'opacity-100', 'visible');
+      mobileMenu.classList.add('-translate-y-full', 'opacity-0', 'invisible');
+    }
+    
+    if (hamburgerSpan1) {
+      hamburgerSpan1.classList.remove('transform', 'rotate-45', 'translate-x-[6px]', 'translate-y-[6px]');
+    }
+    if (hamburgerSpan2) {
+      hamburgerSpan2.classList.remove('opacity-0');
+    }
+    if (hamburgerSpan3) {
+      hamburgerSpan3.classList.remove('transform', '-rotate-45', 'translate-x-[6px]', '-translate-y-[6px]');
+    }
+  }
+
+  // Handle contact click
+  function handleContactClick() {
+    const message = "Hi! I'm interested in learning more about EMAAR & HMR waterfront properties. Could you please provide me with more information?";
+    const whatsappUrl = `https://wa.me/923360878079?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+    
+    // Close mobile menu if open
+    if (isMenuOpen) {
+      closeMenu();
+    }
+  }
+
+  // Handle escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && isMenuOpen) {
+      closeMenu();
+    }
+  });
+
+  // Handle click outside
+  document.addEventListener('click', function(e) {
+    const target = e.target;
+    const mobileMenu = document.getElementById('mobileMenu');
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+
+    if (
+      isMenuOpen &&
+      mobileMenu &&
+      hamburgerBtn &&
+      !mobileMenu.contains(target) &&
+      !hamburgerBtn.contains(target)
+    ) {
+      closeMenu();
+    }
+  });
+
+  // Handle resize to desktop
+  window.addEventListener('resize', function() {
+    if (typeof window !== 'undefined' && window.innerWidth > 768 && isMenuOpen) {
+      closeMenu();
+    }
+  });
+
+  // Cleanup when the page changes
+  document.addEventListener('astro:page-load', () => {
+    window.removeEventListener('scroll', handleScroll);
+  });
+</script>

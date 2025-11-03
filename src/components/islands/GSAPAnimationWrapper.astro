@@ -1,0 +1,31 @@
+---
+// src/components/islands/GSAPAnimationWrapper.astro
+// A general-purpose wrapper for any GSAP animations that can be progressively enhanced
+interface Props {
+  animationType?: 'scroll' | 'timeline' | 'tween' | 'custom';
+  enabled?: boolean;
+}
+
+const { 
+  animationType = 'timeline', 
+  enabled = true 
+} = Astro.props;
+---
+
+<div id="gsap-animation-wrapper" class="gsap-animation-wrapper">
+  <slot />
+</div>
+
+<script>
+  if (enabled) {
+    // Load GSAP dynamically
+    import('gsap').then((gsapModule) => {
+      const gsap = gsapModule.default;
+      
+      // Store GSAP instance for other functions if needed
+      if (typeof window !== 'undefined') {
+        (window as any).astroGsap = gsap;
+      }
+    });
+  }
+</script>
