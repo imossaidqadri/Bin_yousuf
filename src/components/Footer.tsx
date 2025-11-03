@@ -188,7 +188,7 @@ const Footer: React.FC = () => {
                   rel="noopener noreferrer"
                   className="text-gray-700 hover:text-gray-900 transition-colors duration-300 underline hover:no-underline"
                 >
-                  The Other Dev
+                  Other Dev
                 </a>
               </div>
 

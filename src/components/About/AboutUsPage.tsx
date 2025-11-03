@@ -2,9 +2,10 @@
 import React, { useEffect, useRef } from 'react';
 import { getProjectCounts } from '../../data/projects';
 
-// Import the partner logos - add these to your assets folder
+// Import the partner logos and hero image
 import emaarLogo from '../../assets/projects/emaar-logo.png';
 import hmrLogo from '../../assets/projects/hmr-logo.png';
+import heroImage from '../../assets/projects/bin-yousuf-emaar-brokers-award-highlights.webp';
 
 const AboutUsPage: React.FC = () => {
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
@@ -39,6 +40,29 @@ const AboutUsPage: React.FC = () => {
 
   return (
     <main className="min-h-screen bg-white">
+      {/* Hero Image Section */}
+      <section className="relative w-full overflow-hidden">
+        <div className="relative w-full">
+          {/* Responsive container with optimized heights for each breakpoint */}
+          <div className="relative w-full h-[280px] xs:h-[320px] sm:h-[400px] md:h-[500px] lg:h-[600px] xl:h-[700px] 2xl:h-[800px]">
+            <img
+              src={heroImage.src}
+              alt="BinYousuf Group wins Emaar Brokers Spotlight Award"
+              className="w-full h-full object-cover object-center transition-all duration-300"
+              loading="eager"
+            />
+          </div>
+        </div>
+        {/* Caption with responsive positioning */}
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent py-3 sm:py-4 md:py-6 lg:py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <p className="text-center text-white text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl font-semibold tracking-wide">
+              Award-Winning Real Estate Agency
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 bg-gradient-to-br from-neutral-50 to-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
